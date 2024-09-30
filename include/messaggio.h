@@ -13,6 +13,11 @@ private:
 public:
     Messaggio(const Utente &mittente, const Utente &destinatario, const std::string &contenuto);
     void mostraMessaggio() const;
+
+    const Utente &getMittente() const;
+    const Utente &getDestinatario() const;
+
+    const std::string &getContenuto() const;
 };
 
 #endif

@@ -14,6 +14,11 @@ public:
     Chat(const Utente &utente1, const Utente &utente2);
     void aggiungiMessaggio(const Messaggio &messaggio);
     void mostraChat() const;
+
+    const Utente& getUtente1() const;
+    const Utente& getUtente2() const;
+
+    const std::vector<Messaggio>& getMessaggi() const;
 };
 
 #endif
