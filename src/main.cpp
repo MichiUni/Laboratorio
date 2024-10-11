@@ -23,6 +23,7 @@ int main() {
         Utente *utenteLoggato = registroUtenti.login(nome, numeroTelefono);
 
         std::cout << "Ciao, " << utenteLoggato->getNome() << "! Sei loggato nel sistema.\n";
+        utenteLoggato->mostraNotifiche();
 
         // Menu principale
 
@@ -63,7 +64,10 @@ int main() {
                                                                         chatSelezionata.getUtente1() == *utenteLoggato
                                                                         ? chatSelezionata.getUtente2()
                                                                         : chatSelezionata.getUtente1(), messaggio));
-
+                            std::string nome_destinatario;
+                            nome_destinatario=(utenteLoggato->getNome()==chatSelezionata.getUtente1().getNome() ? chatSelezionata.getUtente2().getNome() : chatSelezionata.getUtente1().getNome());
+                            Utente *altroUtente = registroUtenti.trovaUtentePerNome(nome_destinatario);
+                            altroUtente->aggiungiNotifica(utenteLoggato->getNome());
                             // Reinserisci la chat aggiornata nel registro
                         }
                         registroChat.aggiungiChat(chatSelezionata);  // Questa chat sarà riscritta sul file
