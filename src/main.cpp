@@ -78,8 +78,7 @@ int main() {
             } else if (scelta == 2) {
                 // Inizia una nuova chat
                 std::string criterio, messaggio;
-                std::cout
-                        << "Inserisci '1' per cercare un utente tramite numero di telefono, '2' per cercacmakere tramite nome utente: ";
+                std::cout<< "Inserisci '1' per cercare un utente tramite numero di telefono, '2' per cercare tramite nome utente: "<<std::endl;
                 std::cin >> criterio;
 
                 Utente *altroUtente = nullptr;
@@ -104,6 +103,7 @@ int main() {
 
                     nuovaChat.aggiungiMessaggio(Messaggio(*utenteLoggato, *altroUtente, messaggio));
                     registroChat.aggiungiChat(nuovaChat);  // Questa chat sarà salvata sul file
+                    altroUtente->aggiungiNotifica(utenteLoggato->getNome());
                 } else {
                     std::cout << "Utente non trovato.\n";
                 }

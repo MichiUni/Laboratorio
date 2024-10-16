@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories(include)
 
-set(SOURCES
+add_executable(Laboratorio
         src/main.cpp
         src/chat.cpp
         src/messaggio.cpp
@@ -14,7 +14,6 @@ set(SOURCES
         src/registroutenti.cpp
 )
 
-add_executable(Laboratorio ${SOURCES})
 
 add_subdirectory(external/googletest)
 
@@ -32,7 +31,6 @@ add_executable(UnitTests
         src/registrochat.cpp
         src/utente.cpp
         src/registroutenti.cpp
-
 )
 
 # Link con GoogleTest
