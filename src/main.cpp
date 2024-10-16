@@ -79,7 +79,7 @@ int main() {
                 // Inizia una nuova chat
                 std::string criterio, messaggio;
                 std::cout
-                        << "Inserisci '1' per cercare un utente tramite numero di telefono, '2' per cercare tramite nome utente: ";
+                        << "Inserisci '1' per cercare un utente tramite numero di telefono, '2' per cercacmakere tramite nome utente: ";
                 std::cin >> criterio;
 
                 Utente *altroUtente = nullptr;
