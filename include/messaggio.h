@@ -9,7 +9,7 @@ private:
     Utente mittente;
     Utente destinatario;
     std::string contenuto;
-
+    bool letto;
 
 public:
     Messaggio(const Utente &mittente, const Utente &destinatario, const std::string &contenuto);
@@ -17,8 +17,10 @@ public:
 
     const Utente &getMittente() const;
     const Utente &getDestinatario() const;
-
     const std::string &getContenuto() const;
+
+    bool isLetto() const;
+    void setLetto(bool value);
 };
 
 #endif

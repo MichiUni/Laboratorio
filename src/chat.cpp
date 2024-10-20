@@ -13,19 +13,26 @@ void Chat::aggiungiMessaggio(const Messaggio &messaggio) {
     }
 }
 
-void Chat::mostraChat() const {
+void Chat::mostraChat() {
     const std::string ANSI_BLUE = "\033[34m";   // Colore blu per i messaggi dell'utente1
     const std::string ANSI_RED = "\033[31m";    // Colore rosso per i messaggi dell'utente2
+    const std::string ANSI_YELLOW = "\033[33m"; // Colore giallo per i messaggi non letti
     const std::string ANSI_RESET = "\033[0m";   // Resetta il colore
 
-    for (const auto& messaggio : messaggi) {
-        if (messaggio.getMittente().getId() == utente1.getId()) {
-            // Stampa messaggi dell'utente1 in blu
-            std::cout << ANSI_BLUE << messaggio.getMittente().getNome() << ": " << messaggio.getContenuto() << ANSI_RESET << std::endl;
-        } else if (messaggio.getMittente().getId() == utente2.getId()) {
-            // Stampa messaggi dell'utente2 in rosso
-            std::cout << ANSI_RED << messaggio.getMittente().getNome() << ": " << messaggio.getContenuto() << ANSI_RESET << std::endl;
-        }3
+    for (auto& messaggio:messaggi) {
+        if(!messaggio.isLetto()) {
+            std::cout << ANSI_YELLOW;
+        }else{
+            if(messaggio.getMittente().getId()==utente1.getId()){
+                std::cout<<ANSI_BLUE;
+            }
+            else if(messaggio.getMittente().getId()==utente2.getId()){
+                std::cout<<ANSI_RED;
+            }
+        }
+        // Mostra il messaggio
+        std::cout << messaggio.getMittente().getNome() << ": "<< messaggio.getContenuto() << ANSI_RESET << std::endl;
+        messaggio.setLetto(true);
     }
 }
 
