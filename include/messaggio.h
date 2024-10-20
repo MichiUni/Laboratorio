@@ -10,6 +10,7 @@ private:
     Utente destinatario;
     std::string contenuto;
 
+
 public:
     Messaggio(const Utente &mittente, const Utente &destinatario, const std::string &contenuto);
     void mostraMessaggio() const;

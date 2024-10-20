@@ -4,16 +4,15 @@
 Chat::Chat(const Utente &utente1, const Utente &utente2) : utente1(utente1), utente2(utente2) {}
 
 void Chat::aggiungiMessaggio(const Messaggio &messaggio) {
-    messaggi.push_back(messaggio);
-}
-
-/*void Chat::mostraChat() const {
-    std::cout << "Chat tra " << utente1.getNome() << " e " << utente2.getNome() << ":\n";
-    for (const auto &messaggio : messaggi) {
-        messaggio.mostraMessaggio();
+    if((messaggio.getMittente().getId()==utente1.getId() && messaggio.getDestinatario().getId()==utente2.getId()) || (messaggio.getMittente().getId()==utente2.getId() && messaggio.getDestinatario().getId()==utente1.getId())){
+        messaggi.push_back(messaggio);
+    }
+    else
+    {
+        std::cout<<"Errore: Il messaggio non appartiene a questa chat."<<std::endl;
     }
 }
-*/
+
 void Chat::mostraChat() const {
     const std::string ANSI_BLUE = "\033[34m";   // Colore blu per i messaggi dell'utente1
     const std::string ANSI_RED = "\033[31m";    // Colore rosso per i messaggi dell'utente2
@@ -26,7 +25,7 @@ void Chat::mostraChat() const {
         } else if (messaggio.getMittente().getId() == utente2.getId()) {
             // Stampa messaggi dell'utente2 in rosso
             std::cout << ANSI_RED << messaggio.getMittente().getNome() << ": " << messaggio.getContenuto() << ANSI_RESET << std::endl;
-        }
+        }3
     }
 }
 
