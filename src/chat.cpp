@@ -1,11 +1,12 @@
 #include "chat.h"
 #include <iostream>
 
-Chat::Chat(const Utente &utente1, const Utente &utente2) : utente1(utente1), utente2(utente2) {}
+Chat::Chat(const Utente &utente1, const Utente &utente2) : utente1(utente1), utente2(utente2), num_messaggi(0) {}
 
 void Chat::aggiungiMessaggio(const Messaggio &messaggio) {
     if((messaggio.getMittente().getId()==utente1.getId() && messaggio.getDestinatario().getId()==utente2.getId()) || (messaggio.getMittente().getId()==utente2.getId() && messaggio.getDestinatario().getId()==utente1.getId())){
         messaggi.push_back(messaggio);
+        num_messaggi++;
     }
     else
     {
@@ -17,7 +18,10 @@ void Chat::mostraChat() {
     const std::string ANSI_BLUE = "\033[34m";   // Colore blu per i messaggi dell'utente1
     const std::string ANSI_RED = "\033[31m";    // Colore rosso per i messaggi dell'utente2
     const std::string ANSI_YELLOW = "\033[33m"; // Colore giallo per i messaggi non letti
+    const std::string ANSI_PURPLE= "\033[35m"; //Colore viola per il numero di messaggi della chat
     const std::string ANSI_RESET = "\033[0m";   // Resetta il colore
+
+    std::cout<<ANSI_PURPLE<<"Questa chat contiene "<<num_messaggi<<" messaggi"<<ANSI_RESET<<std::endl;
 
     for (auto& messaggio:messaggi) {
         if(!messaggio.isLetto()) {

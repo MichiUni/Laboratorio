@@ -49,9 +49,8 @@ int main() {
                         chatSelezionata.mostraChat();
 
                         // Chiedi all'utente se vuole inviare un nuovo messaggio
-                        std::string messaggio;
+                        std::string messaggio,risposta;
                         std::cout << "Vuoi inviare un messaggio? (si/no): ";
-                        std::string risposta;
                         std::cin >> risposta;
 
                         if (risposta == "si") {

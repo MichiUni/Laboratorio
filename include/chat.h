@@ -9,6 +9,7 @@ private:
     Utente utente1;
     Utente utente2;
     std::vector<Messaggio> messaggi;
+    int num_messaggi;
 
 public:
     Chat(const Utente &utente1, const Utente &utente2);
