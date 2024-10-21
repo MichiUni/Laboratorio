@@ -53,8 +53,14 @@ void RegistroChat::salvaSuFile() {
             // Scrivi tutti i messaggi della chat
             for (const auto &messaggio : chat.getMessaggi()) {
                 file << messaggio.getMittente().getId() << " "
-                     << messaggio.getDestinatario().getId() << " "
-                     << messaggio.getContenuto() << std::endl;
+                     << messaggio.getDestinatario().getId() << " ";
+                if(messaggio.isLetto()){
+                    file<<1<<" ";
+                }
+                else{
+                    file<<0<<" ";
+                }
+                file<<messaggio.getContenuto()<<std::endl;
             }
 
             file << "END_CHAT" << std::endl;  // Indicatore di fine chat
@@ -90,8 +96,10 @@ void RegistroChat::caricaDaFile(RegistroUtenti &registroUtenti) {
                             break;
                         }
                     }
+                    int is_letto;
                     file >> idMittente;
                     file >> idDestinatario;
+                    file >> is_letto;
                     file.ignore(); // Ignora lo spazio prima del contenuto del messaggio
                     std::getline(file, contenuto);
 
@@ -101,7 +109,7 @@ void RegistroChat::caricaDaFile(RegistroUtenti &registroUtenti) {
 
                     // Se entrambi esistono, aggiungi il messaggio alla chat
                     if (mittente != nullptr && destinatario != nullptr) {
-                        chat.aggiungiMessaggio(Messaggio(*mittente, *destinatario, contenuto));
+                        chat.aggiungiMessaggio(Messaggio(*mittente, *destinatario, contenuto,is_letto));
                     }
                 }
 

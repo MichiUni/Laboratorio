@@ -13,7 +13,7 @@ private:
 
 public:
     Messaggio(const Utente &mittente, const Utente &destinatario, const std::string &contenuto);
-    void mostraMessaggio() const;
+    Messaggio(const Utente &mittente, const Utente &destinatario, const std::string &contenuto, int is_letto); //overload del costruttore, usato nel metodo carica da file
 
     const Utente &getMittente() const;
     const Utente &getDestinatario() const;

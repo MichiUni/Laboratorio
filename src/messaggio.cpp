@@ -4,9 +4,14 @@
 Messaggio::Messaggio(const Utente &mittente, const Utente &destinatario, const std::string &contenuto)
         : mittente(mittente), destinatario(destinatario), contenuto(contenuto), letto(false) {}
 
-void Messaggio::mostraMessaggio() const {
-    std::cout << mittente.getNome() << " a " << destinatario.getNome() << ": " << contenuto << std::endl;
-}
+Messaggio::Messaggio(const Utente &mittente, const Utente &destinatario, const std::string &contenuto, int is_letto)
+        : mittente(mittente), destinatario(destinatario), contenuto(contenuto)
+        {
+            if(is_letto==1)
+                letto=true;
+            else
+                letto=false;
+        }
 
 const Utente &Messaggio::getMittente() const {
     return mittente;
