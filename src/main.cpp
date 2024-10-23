@@ -23,6 +23,7 @@ int main() {
         Utente *utenteLoggato = registroUtenti.login(nome, numeroTelefono);
 
         std::cout << "Ciao, " << utenteLoggato->getNome() << "! Sei loggato nel sistema.\n";
+        std::cout<<std::endl;
         utenteLoggato->mostraNotifiche();
 
         // Menu principale

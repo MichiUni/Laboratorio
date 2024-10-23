@@ -15,7 +15,7 @@ Utente* RegistroUtenti::registraUtente(const std::string &nome, const std::strin
     return &utenti.back();
 }
 
-Utente* RegistroUtenti::login(const std::string &nome, const std::string &numeroTelefono) {
+Utente* RegistroUtenti::login(const std::string &nome, const std::string &numeroTelefono){
     for (auto &utente : utenti) {
         if (utente.getNome() == nome && utente.getNumeroTelefono() == numeroTelefono) {
             return &utente;
@@ -54,8 +54,9 @@ Utente* RegistroUtenti::trovaUtentePerId(int id){
     return nullptr;  // Se nessun utente viene trovato, restituisce nullptr}{
 }
 
+
 // Metodo per salvare solo l'ultimo utente in coda al file
-void RegistroUtenti::salvaSuFile() {
+void RegistroUtenti::salvaSuFile() const {
     // Apri il file in modalità append per aggiungere solo l'ultimo utente
     std::ofstream file("utenti.txt", std::ios::app);
     if (file.is_open()) {
@@ -67,7 +68,7 @@ void RegistroUtenti::salvaSuFile() {
 }
 
 // Metodo per caricare i dati degli utenti da un file
-void RegistroUtenti::caricaDaFile() {
+void RegistroUtenti::caricaDaFile(){
     std::ifstream file("utenti.txt");
     if (file.is_open()) {
         utenti.clear();  // Pulisci il vettore prima di caricare i dati

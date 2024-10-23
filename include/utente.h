@@ -17,8 +17,8 @@ public:
     std::string getNome() const;
     std::string getNumeroTelefono() const;
 
-    void mostraNotifiche();
-    void aggiungiNotifica(std::string nome_mittente);
+    void mostraNotifiche();  //non dichiarato costante perchè dopo aver mostrato il contenuto del vector notifiche lo svuota
+    void aggiungiNotifica(const std::string nome_mittente);
 
     bool operator==(const Utente &other) const;
 };

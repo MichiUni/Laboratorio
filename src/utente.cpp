@@ -23,7 +23,7 @@ bool Utente::operator==(const Utente &other) const {
 
 void Utente::mostraNotifiche(){
     for (std::vector<std::string>::iterator it = notifiche.begin(); it != notifiche.end(); ++it) {
-        std::cout << *it << std::endl;  // Dereferenziazione dell'iteratore
+        std::cout << *it << std::endl;
     }
     notifiche.clear();
 }

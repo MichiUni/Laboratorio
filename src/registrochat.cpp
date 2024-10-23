@@ -26,7 +26,7 @@ void RegistroChat::mostraChatsPerUtente(const Utente &utente) const {
     }
 }
 
-Chat RegistroChat::getChatByIndicePerUtente(const Utente &utente, int indice) {
+Chat RegistroChat::getChatByIndicePerUtente(const Utente &utente, int indice){
     int contatore = 0;
     for (auto it = chats.begin(); it != chats.end(); ++it) {
         if (it->getUtente1().getId() == utente.getId() || it->getUtente2().getId() == utente.getId()) {
@@ -42,32 +42,22 @@ Chat RegistroChat::getChatByIndicePerUtente(const Utente &utente, int indice) {
     throw std::out_of_range("Indice non valido");  // Gestisce il caso in cui l'indice sia fuori dai limiti
 }
 
-void RegistroChat::salvaSuFile() {
+
+//il metodo getMessaggi che era dichiarato nella classe chat, e che rompeva l'incapsulamento, era necessario nel vecchio metodo
+//salvaSuFile per scorrere i messaggi della chat per poterli salvare(con tutti i loro parametri opportunatamente posizionati nel file).
+//Per risolvere questo problema creo il metodo salvaSuFile anche nella classe chat di modo che sarà ogni chat, che viene chiamata in causa
+//dal for del metodo salvaSuFile della classe registrochat, a salvare sé stessa sul file
+const void RegistroChat::salvaSuFile() {
     // Apri il file in modalità sovrascrittura (std::ios::trunc) per riscrivere tutte le chat
-    std::ofstream file("chats.txt", std::ios::trunc);  // Questo sovrascrive l'intero file
-    if (file.is_open()) {
-        // Riscrivi tutte le chat nel file
-        for (const auto &chat : chats) {
-            file << chat.getUtente1().getId() << " " << chat.getUtente2().getId() << std::endl;
-
-            // Scrivi tutti i messaggi della chat
-            for (const auto &messaggio : chat.getMessaggi()) {
-                file << messaggio.getMittente().getId() << " "
-                     << messaggio.getDestinatario().getId() << " ";
-                if(messaggio.isLetto()){
-                    file<<1<<" ";
-                }
-                else{
-                    file<<0<<" ";
-                }
-                file<<messaggio.getContenuto()<<std::endl;
-            }
-
-            file << "END_CHAT" << std::endl;  // Indicatore di fine chat
-        }
+    std::ofstream file("chats.txt", std::ios::trunc);  // Il file viene aperto e svuotato
+    if(file.is_open()){
+        file.close();
     }
-    file.close();
+    for (const auto &chat : chats) {
+        chat.salvaSuFile();
+    }
 }
+
 
 void RegistroChat::caricaDaFile(RegistroUtenti &registroUtenti) {
     std::ifstream file("chats.txt");

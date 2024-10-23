@@ -1,5 +1,7 @@
 #include "chat.h"
 #include <iostream>
+#include <fstream>
+
 
 Chat::Chat(const Utente &utente1, const Utente &utente2) : utente1(utente1), utente2(utente2), num_messaggi(0) {}
 
@@ -14,7 +16,7 @@ void Chat::aggiungiMessaggio(const Messaggio &messaggio) {
     }
 }
 
-void Chat::mostraChat() {
+void Chat::mostraChat(){
     const std::string ANSI_BLUE = "\033[34m";   // Colore blu per i messaggi dell'utente1
     const std::string ANSI_RED = "\033[31m";    // Colore rosso per i messaggi dell'utente2
     const std::string ANSI_YELLOW = "\033[33m"; // Colore giallo per i messaggi non letti
@@ -49,6 +51,26 @@ const Utente& Chat::getUtente2() const {
     return utente2;
 }
 
-const std::vector<Messaggio>& Chat::getMessaggi() const {
+/*const std::vector<Messaggio>& Chat::getMessaggi() const {
     return messaggi;
+}
+*/
+
+void Chat::salvaSuFile() const {
+    std::ofstream file("chats.txt", std::ios::app);  // Il file viene aperto in modalità append
+    if(file.is_open()) {
+        file << utente1.getId() << " " << utente2.getId() << std::endl;
+        for (const auto &messaggio: messaggi) {
+            file << messaggio.getMittente().getId() << " "
+                 << messaggio.getDestinatario().getId() << " ";
+            if (messaggio.isLetto()) {
+                file << 1 << " ";
+            } else {
+                file << 0 << " ";
+            }
+            file << messaggio.getContenuto() << std::endl;
+        }
+        file << "END_CHAT" << std::endl;  // Indicatore di fine chat
+    }
+    file.close();
 }
