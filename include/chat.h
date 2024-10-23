@@ -23,9 +23,6 @@ public:
     const Utente& getUtente2() const;
 
     void salvaSuFile() const;
-
-    //To do aggiungere metodi: numeroMessaggi, numMessaggiDaleggere
-    //const std::vector<Messaggio>& getMessaggi() const;   //Da togliere
 };
 
 #endif
