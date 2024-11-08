@@ -4,7 +4,7 @@
 
 // Costruttore: carica le chat dal file
 RegistroChat::RegistroChat(RegistroUtenti &registroUtenti) {
-    caricaDaFile(registroUtenti);  // Passa il riferimento a RegistroUtenti per caricare le chat
+    caricaDaFile(registroUtenti);
 }
 // Metodo per aggiungere una nuova chat
 void RegistroChat::aggiungiChat(const Chat &chat) {
@@ -47,7 +47,7 @@ Chat RegistroChat::getChatByIndicePerUtente(const Utente &utente, int indice){
 //salvaSuFile per scorrere i messaggi della chat per poterli salvare(con tutti i loro parametri opportunatamente posizionati nel file).
 //Per risolvere questo problema creo il metodo salvaSuFile anche nella classe chat di modo che sarà ogni chat, che viene chiamata in causa
 //dal for del metodo salvaSuFile della classe registrochat, a salvare sé stessa sul file
-const void RegistroChat::salvaSuFile() {
+void RegistroChat::salvaSuFile() const {
     // Apri il file in modalità sovrascrittura (std::ios::trunc) per riscrivere tutte le chat
     std::ofstream file("chats.txt", std::ios::trunc);  // Il file viene aperto e svuotato
     if(file.is_open()){
@@ -63,7 +63,6 @@ void RegistroChat::caricaDaFile(RegistroUtenti &registroUtenti) {
     std::ifstream file("chats.txt");
     if (file.is_open()) {
         int idUtente1, idUtente2;
-
         while (file >> idUtente1 >> idUtente2) {
             // Cerca gli utenti nel registro usando i loro ID
             Utente* utente1 = registroUtenti.trovaUtentePerId(idUtente1);
@@ -75,7 +74,6 @@ void RegistroChat::caricaDaFile(RegistroUtenti &registroUtenti) {
 
                 int idMittente, idDestinatario;
                 std::string contenuto;
-
                 // Continua a leggere i messaggi fino a quando non troviamo "END_CHAT"
                 while (true) {
                     // Se incontriamo "END_CHAT", interrompi la lettura della chat corrente

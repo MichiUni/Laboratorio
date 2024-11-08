@@ -9,7 +9,7 @@
 class RegistroChat {
 private:
     std::vector<Chat> chats;
-    const void salvaSuFile();// Salva solo l'ultima chat aggiunta in coda al file
+    void salvaSuFile() const;// Salva solo l'ultima chat aggiunta in coda al file
     void caricaDaFile(RegistroUtenti &registroUtenti); // Carica le chat da un file
 
 public:

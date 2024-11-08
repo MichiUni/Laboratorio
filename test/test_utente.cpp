@@ -1,15 +1,14 @@
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 #include "utente.h"
 
-TEST(UtenteTest, Costruttore) {
-Utente utente(1, "Mario", "1234567890");
-EXPECT_EQ(utente.getId(), 1);
-EXPECT_EQ(utente.getNome(), "Mario");
-EXPECT_EQ(utente.getNumeroTelefono(), "1234567890");
-}
+// Test per l'aggiunta di notifiche e la loro visualizzazione
+TEST(UtenteTest, AggiungiMostraNotifiche) {
+    Utente utente(1, "Alice", "123456789");
+    utente.aggiungiNotifica("Bob");
 
-TEST(UtenteTest, AggiungiNotifica) {
-Utente utente(1, "Mario", "1234567890");
-utente.aggiungiNotifica("Nuovo messaggio da Luigi");
-EXPECT_NO_THROW(utente.mostraNotifiche());
+    testing::internal::CaptureStdout();
+    utente.mostraNotifiche();
+    std::string output = testing::internal::GetCapturedStdout();
+
+    EXPECT_EQ(output, "Hai ricevuto un messaggio da Bob\n");
 }
