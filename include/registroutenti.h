@@ -20,8 +20,8 @@ public:
 
     Utente* login(const std::string &nome, const std::string &numeroTelefono);
 
-    Utente* trovaUtentePerNumero(std::string &numeroTelefono);  // Cerca un utente per numero di telefono
-    Utente* trovaUtentePerNome(std::string &nome);  // Cerca un utente per nome
+    Utente* trovaUtentePerNumero(const std::string &numeroTelefono);  // Cerca un utente per numero di telefono
+    Utente* trovaUtentePerNome(const std::string &nome);  // Cerca un utente per nome
     Utente* trovaUtentePerId(int id);
 };
 

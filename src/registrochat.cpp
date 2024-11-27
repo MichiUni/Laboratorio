@@ -12,8 +12,6 @@ void RegistroChat::aggiungiChat(const Chat &chat) {
     salvaSuFile();
 }
 
-
-
 void RegistroChat::mostraChatsPerUtente(const Utente &utente) const {
     int indice = 1;
     for (const auto &chat : chats) {

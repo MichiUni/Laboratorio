@@ -28,7 +28,7 @@ void Utente::mostraNotifiche(){
     notifiche.clear();
 }
 
-void Utente::aggiungiNotifica(std::string nome_mittente) {
+void Utente::aggiungiNotifica(const std::string &nome_mittente) {
     notifiche.push_back("Hai ricevuto un messaggio da "+nome_mittente);
 }
 

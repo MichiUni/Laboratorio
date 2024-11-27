@@ -2,6 +2,7 @@
 #include "chat.h"
 #include "messaggio.h"
 #include "utente.h"
+#include "MessaggioNonValidoException.h"
 
 // Test per aggiungere un messaggio valido a una chat
 TEST(ChatTest, AggiungiMessaggioValido) {
@@ -24,8 +25,15 @@ TEST(ChatTest, AggiungiMessaggioNonValido) {
 
     Utente utente3(3, "Charlie", "111222333");
     Messaggio messaggio(utente1, utente3, "Messaggio non valido");  // Mittente e destinatario non corrispondono alla chat
-    chat.aggiungiMessaggio(messaggio);  // Dovrebbe dare un errore
 
-    // Assicurati che il messaggio non venga aggiunto
-    chat.mostraChat();  // Non dovrebbe mostrare il messaggio
+    // Assicurati che venga lanciata l'eccezione
+    EXPECT_THROW(chat.aggiungiMessaggio(messaggio), MessaggioNonValidoException);
+
+    // Mostra la chat per verificare che il messaggio non sia stato aggiunto
+    testing::internal::CaptureStdout();  // Cattura l'output della console
+    chat.mostraChat();
+    std::string output = testing::internal::GetCapturedStdout();
+
+    // Verifica che la chat sia vuota
+    EXPECT_EQ(output.find("Messaggio non valido"), std::string::npos);
 }

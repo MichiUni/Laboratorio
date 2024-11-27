@@ -4,6 +4,7 @@
 #include "registroutenti.h"
 #include "registrochat.h"
 #include "chat.h"
+#include "MessaggioNonValidoException.h"
 
 
 int main() {
@@ -60,16 +61,21 @@ int main() {
                             std::getline(std::cin, messaggio);
 
                             // Aggiungi il nuovo messaggio alla chat
-                            chatSelezionata.aggiungiMessaggio(Messaggio(*utenteLoggato,
-                                                                        chatSelezionata.getUtente1() == *utenteLoggato
-                                                                        ? chatSelezionata.getUtente2()
-                                                                        : chatSelezionata.getUtente1(), messaggio));
-                            std::string nome_destinatario;
-                            nome_destinatario=(utenteLoggato->getNome()==chatSelezionata.getUtente1().getNome() ? chatSelezionata.getUtente2().getNome() : chatSelezionata.getUtente1().getNome());
-                            Utente *altroUtente = registroUtenti.trovaUtentePerNome(nome_destinatario);
-                            altroUtente->aggiungiNotifica(utenteLoggato->getNome());
-                            // Reinserisci la chat aggiornata nel registro
+                            try {
+                                chatSelezionata.aggiungiMessaggio(Messaggio(*utenteLoggato,
+                                                                            chatSelezionata.getUtente1() == *utenteLoggato
+                                                                            ? chatSelezionata.getUtente2()
+                                                                            : chatSelezionata.getUtente1(), messaggio));
+                                //La notifica viene aggiunta solo se non è stata sollevata l'eccezione
+                                std::string nome_destinatario;
+                                nome_destinatario=(utenteLoggato->getNome()==chatSelezionata.getUtente1().getNome() ? chatSelezionata.getUtente2().getNome() : chatSelezionata.getUtente1().getNome());
+                                Utente *altroUtente = registroUtenti.trovaUtentePerNome(nome_destinatario);
+                                altroUtente->aggiungiNotifica(utenteLoggato->getNome());
+                            } catch (const MessaggioNonValidoException &e) {
+                                std::cout << "Eccezione catturata: " << e.what() << std::endl;
+                            }
                         }
+                        // Reinserisci la chat aggiornata nel registro
                         registroChat.aggiungiChat(chatSelezionata);  // Questa chat sarà riscritta sul file
                     } catch (const std::out_of_range &e) {
                         std::cout << "Chat non valida.\n";
@@ -101,9 +107,14 @@ int main() {
                     std::cin.ignore();
                     std::getline(std::cin, messaggio);
 
-                    nuovaChat.aggiungiMessaggio(Messaggio(*utenteLoggato, *altroUtente, messaggio));
+                    try{
+                        nuovaChat.aggiungiMessaggio(Messaggio(*utenteLoggato, *altroUtente, messaggio));
+                        //La notifica viene aggiunta solo se non è stata sollevata l'eccezione
+                        altroUtente->aggiungiNotifica(utenteLoggato->getNome());
+                    }catch (const MessaggioNonValidoException &e) {
+                        std::cout << "Eccezione catturata: " << e.what() << std::endl;
+                    }
                     registroChat.aggiungiChat(nuovaChat);  // Questa chat sarà salvata sul file
-                    altroUtente->aggiungiNotifica(utenteLoggato->getNome());
                 } else {
                     std::cout << "Utente non trovato.\n";
                 }

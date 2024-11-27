@@ -1,4 +1,5 @@
 #include "chat.h"
+#include "MessaggioNonValidoException.h"
 #include <iostream>
 #include <fstream>
 
@@ -10,9 +11,8 @@ void Chat::aggiungiMessaggio(const Messaggio &messaggio) {
         messaggi.push_back(messaggio);
         num_messaggi++;
     }
-    else
-    {
-        std::cout<<"Errore: Il messaggio non appartiene a questa chat."<<std::endl;
+    else {
+        throw MessaggioNonValidoException("Errore: Il messaggio non appartiene a questa chat.");
     }
 }
 

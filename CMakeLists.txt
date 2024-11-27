@@ -12,6 +12,7 @@ add_executable(Laboratorio
         src/registrochat.cpp
         src/utente.cpp
         src/registroutenti.cpp
+        include/MessaggioNonValidoException.h
 )
 
 
@@ -31,6 +32,7 @@ add_executable(UnitTests
         src/registrochat.cpp
         src/utente.cpp
         src/registroutenti.cpp
+        test/test_eccezione.cpp
 )
 
 # Link con GoogleTest

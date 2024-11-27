@@ -25,7 +25,7 @@ Utente* RegistroUtenti::login(const std::string &nome, const std::string &numero
 }
 
 // Metodo per trovare un utente tramite numero di telefono
-Utente* RegistroUtenti::trovaUtentePerNumero(std::string &numeroTelefono) {
+Utente* RegistroUtenti::trovaUtentePerNumero(const std::string &numeroTelefono) {
     for (auto &utente : utenti) {
         if (utente.getNumeroTelefono() == numeroTelefono) {
             return &utente;  // Restituisce il puntatore all'utente trovato
@@ -35,7 +35,7 @@ Utente* RegistroUtenti::trovaUtentePerNumero(std::string &numeroTelefono) {
 }
 
 // Metodo per trovare un utente tramite nome
-Utente* RegistroUtenti::trovaUtentePerNome(std::string &nome) {
+Utente* RegistroUtenti::trovaUtentePerNome(const std::string &nome) {
     for (auto &utente : utenti) {
         if (utente.getNome() == nome) {
             return &utente;  // Restituisce il puntatore all'utente trovato
